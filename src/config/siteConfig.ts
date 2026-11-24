@@ -37,15 +37,15 @@ const pages = resolvePageToggles({
 	// ── 关于 (About) ──────────────────────────────────
 
 	// 打赏页面开关
-	sponsor: true,
+	sponsor: false,
 });
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "晓阳的个人博客",
+	title: "Yang's Blog!",
 
 	// 站点副标题
-	subtitle: "个人博客",
+	subtitle: "",
 
 	// 站点 URL
 	site_url: "https://blog.xusun.eu.cc",
