@@ -48,10 +48,10 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 	local: {
 		playlist: [
 			{
-				name: "使一颗心免于哀伤",
-				artist: "知更鸟 / HOYO-MiX / Chevy",
-				url: "/assets/music/使一颗心免于哀伤-哼唱.mp3",
-				cover: "/assets/music/cover/109951169585655912.webp",
+				name: "主角",
+				artist: "马里奥",
+				url: "/assets/music/斗破苍穹-主角-马里奥(2).mp3",
+				cover: "/assets/music/cover/斗破苍穹.png",
 				lrc: "",
 			},
 		],
