@@ -6,7 +6,7 @@ export const profileConfig: ProfileConfig = {
 	// 1. public 目录（以 "/" 开头，不优化）："/assets/images/avatar.webp"
 	// 2. src 目录（不以 "/" 开头，自动优化但会增加构建时间，推荐）："assets/images/avatar.webp"
 	// 3. 远程 URL："https://example.com/avatar.jpg"
-	avatar: "assets/images/avatar.avif",
+	avatar: "assets/images/avatar-xiaoyang.jpg",
 
 	// 名字
 	name: "晓阳",
@@ -31,6 +31,12 @@ export const profileConfig: ProfileConfig = {
 			name: "Email",
 			icon: "fa7-solid:envelope",
 			url: "mailto:xuyangw@mail.ustc.edu.cn",
+			showName: false,
+		},
+		{
+			name: "抖音",
+			icon: "simple-icons:tiktok",
+			url: "https://www.douyin.com/search/wxyzs666?type=user",
 			showName: false,
 		},
 		{

@@ -122,9 +122,14 @@ const tLoadError = i18n(I18nKey.videoLoadError);
 		function doPlay() {
 			video.src = urlList[currentIndex];
 			video.muted = true;
+			video.loop = true;
 			video.play()
-				.then(function () { setTimeout(function () { if (video) video.muted = false; }, 100); })
-				.catch(function () { isPlaying = false; syncAttr(); });
+				.catch(function () {
+					isPlaying = false;
+					if (overlay) { overlay.classList.remove("opacity-100"); overlay.classList.add("opacity-0"); }
+					syncAttr();
+					showToast();
+				});
 		}
 
 		function switchTrack(index) {
@@ -187,6 +192,12 @@ const tLoadError = i18n(I18nKey.videoLoadError);
 		video.addEventListener("playing", function () { errorCount = 0; });
 		if (prevBtn) prevBtn.addEventListener("click", function () { switchTrack(prevIndex()); });
 		if (nextBtn) nextBtn.addEventListener("click", function () { switchTrack(pickIndex(currentIndex)); });
+
+		// 默认自动静音播放背景视频；导航栏按钮仍可暂停或继续
+		isPlaying = true;
+		if (overlay) { overlay.classList.remove("opacity-0"); overlay.classList.add("opacity-100"); }
+		syncAttr();
+		requestAnimationFrame(doPlay);
 
 		// 切换壁纸模式时停止播放
 		window.addEventListener("wallpaperModeChange", function (e) {
