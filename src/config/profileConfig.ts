@@ -36,7 +36,7 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "抖音",
 			icon: "simple-icons:tiktok",
-			url: "https://www.douyin.com/search/wxyzs666?type=user",
+			url: "https://www.douyin.com/user/MS4wLjABAAAAv9CRNTEB1wW-JENxgy1OMV4fOq_0snDV9cWYl5XmzTBN9oH24kxC5jK0GxnJ-Wk9?from_tab_name=main",
 			showName: false,
 		},
 		{

@@ -55,6 +55,13 @@ export const musicPlayerConfig: MusicPlayerConfig = {
 				lrc: "",
 			},
 			{
+				name: "希望的碎片",
+				artist: "二次元小美",
+				url: "/assets/music/捷德奥特曼-キボウノカケラ+(希望的碎片)-二次元小美.mp3",
+				cover: "/assets/music/cover/希望的碎片.webp",
+				lrc: "",
+			},
+			{
 				name: "不凡",
 				artist: "王铮亮",
 				url: "/assets/music/不凡-王铮亮.mp3",
