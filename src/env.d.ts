@@ -40,6 +40,8 @@ declare global {
 		exitImmersiveReading: () => void;
 		toggleImmersiveTOC: () => void;
 		__immersiveReadingInit?: boolean;
+		__readingProgressInit?: boolean;
+		__holidayCountdownInit?: boolean;
 		// swup is defined in global.d.ts
 		// biome-ignore lint/suspicious/noExplicitAny: External library without types
 		spine: any;

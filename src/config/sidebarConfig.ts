@@ -94,6 +94,13 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 				collapseThreshold: 10,
 			},
 		},
+		{
+			// 最近发布文章推荐（按发布日期从新到旧）
+			type: "recentPosts",
+			enable: true,
+			position: "sticky",
+			showOnPostPage: true,
+		},
 	],
 
 	// 右侧边栏组件配置列表
@@ -160,6 +167,13 @@ export const sidebarLayoutConfig: SidebarLayoutConfig = {
 					showHeatmap: true,
 				},
 			},
+		},
+		{
+			// 中国大陆法定节假日倒计时
+			type: "holidayCountdown",
+			enable: true,
+			position: "sticky",
+			showOnPostPage: false,
 		},
 		{
 			// 组件类型：侧边栏目录组件（只在文章详情页显示）

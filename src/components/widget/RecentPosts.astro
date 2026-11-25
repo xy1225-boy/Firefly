@@ -1,0 +1,44 @@
+---
+import WidgetLayout from "@/components/common/WidgetLayout.astro";
+import { getSortedPostsList } from "@/utils/content-utils";
+import { formatDateToYYYYMMDD } from "@/utils/date-utils";
+import { getPostUrlBySlug } from "@/utils/url-utils";
+
+const posts = (await getSortedPostsList())
+	.filter((post) => post.data.draft !== true)
+	.sort((a, b) => b.data.published.getTime() - a.data.published.getTime())
+	.slice(0, 5);
+---
+
+<WidgetLayout id="recent-posts" name="推荐阅读">
+	{posts.length > 0 ? (
+		<div class="flex flex-col">
+			{posts.map((post, index) => (
+				<a
+				href={getPostUrlBySlug(post.id)}
+					class:list={[
+						"group flex items-center gap-3 rounded-lg px-2 py-3 transition-colors hover:bg-black/5 dark:hover:bg-white/5",
+						index < posts.length - 1 && "border-b border-dashed border-(--line-divider)",
+					]}
+				>
+					<span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-(--enter-btn-bg) text-sm font-bold text-(--primary)">
+						{index + 1}
+					</span>
+					<span class="min-w-0 flex-1">
+						<span class="block truncate text-sm font-semibold text-neutral-700 transition-colors group-hover:text-(--primary) dark:text-neutral-200">
+							{post.data.title}
+						</span>
+						<time
+							class="mt-1 block text-xs text-neutral-400"
+							datetime={post.data.published.toISOString()}
+						>
+							{formatDateToYYYYMMDD(post.data.published)}
+						</time>
+					</span>
+				</a>
+			))}
+		</div>
+	) : (
+		<p class="py-6 text-center text-sm text-neutral-400">暂时还没有已发布的文章</p>
+	)}
+</WidgetLayout>

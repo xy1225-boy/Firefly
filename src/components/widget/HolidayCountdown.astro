@@ -1,0 +1,74 @@
+---
+import WidgetLayout from "@/components/common/WidgetLayout.astro";
+
+// 日期取自国务院办公厅公布的 2027 年节假日安排；法定节日日期固定的元旦也用于兜底。
+const holidays = [
+	{ name: "元旦", date: "2027-01-01" },
+	{ name: "春节", date: "2027-02-05" },
+	{ name: "清明节", date: "2027-04-03" },
+	{ name: "劳动节", date: "2027-05-01" },
+	{ name: "端午节", date: "2027-06-09" },
+	{ name: "中秋节", date: "2027-09-15" },
+	{ name: "国庆节", date: "2027-10-01" },
+	{ name: "元旦", date: "2028-01-01" },
+];
+---
+
+<WidgetLayout id="holiday-countdown" name="节假日倒计时">
+	<div
+		id="holiday-countdown-content"
+		class="flex flex-col items-center justify-center py-2 text-center"
+		data-holidays={JSON.stringify(holidays)}
+	>
+		<p class="text-sm text-neutral-500 dark:text-neutral-400">
+			距离 <span id="holiday-name" class="font-medium text-(--primary)">下一个假期</span>
+		</p>
+		<div class="my-1 flex items-baseline gap-2">
+			<strong id="holiday-days" class="text-4xl font-bold leading-none text-(--primary)">—</strong>
+			<span class="text-sm text-neutral-500 dark:text-neutral-400">天</span>
+		</div>
+		<time id="holiday-date" class="text-xs text-neutral-500 dark:text-neutral-400"></time>
+	</div>
+</WidgetLayout>
+
+<script>
+	function updateHolidayCountdown() {
+		const root = document.getElementById("holiday-countdown-content");
+		if (!root) return;
+
+		const holidays = JSON.parse(root.dataset.holidays || "[]") as {
+			name: string;
+			date: string;
+		}[];
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+		const next = holidays.find(({ date }) => {
+			const [year, month, day] = date.split("-").map(Number);
+			return new Date(year, month - 1, day) >= today;
+		}) ?? {
+			name: "元旦",
+			date: `${today.getFullYear() + 1}-01-01`,
+		};
+
+		const [year, month, day] = next.date.split("-").map(Number);
+		const holidayDate = new Date(year, month - 1, day);
+		const daysLeft = Math.ceil((holidayDate.getTime() - today.getTime()) / 86_400_000);
+		const name = document.getElementById("holiday-name");
+		const days = document.getElementById("holiday-days");
+		const date = document.getElementById("holiday-date");
+		if (name) name.textContent = next.name;
+		if (days) days.textContent = String(daysLeft);
+		if (date) {
+			date.textContent = next.date;
+			date.setAttribute("datetime", next.date);
+		}
+	}
+
+	if (!window.__holidayCountdownInit) {
+		window.__holidayCountdownInit = true;
+		updateHolidayCountdown();
+		window.setInterval(updateHolidayCountdown, 60_000);
+		document.addEventListener("astro:page-load", updateHolidayCountdown);
+		document.addEventListener("swup:contentReplaced", updateHolidayCountdown);
+	}
+</script>
