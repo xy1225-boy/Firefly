@@ -20,6 +20,8 @@
 
 ::github{repo="saicaca/fuwari"}
 
+::github{repo="xy1225-boy/firefly-imgbed"}
+
 ---
 
 *感谢你的来访。希望这里的文字与照片，能为你带来一点启发，也欢迎常来看看。*
