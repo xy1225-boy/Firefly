@@ -28,6 +28,35 @@ const holidays = [
 			<span class="text-sm text-neutral-500 dark:text-neutral-400">天</span>
 		</div>
 		<time id="holiday-date" class="text-xs text-neutral-500 dark:text-neutral-400"></time>
+		<div class="mt-4 w-full space-y-3 border-t border-(--line-divider) pt-3 text-left">
+			<div data-period="year">
+				<div class="mb-1 flex justify-between text-xs">
+					<span class="text-neutral-500 dark:text-neutral-400">本年还剩</span>
+					<strong id="year-days" class="font-medium text-neutral-700 dark:text-neutral-200">— 天</strong>
+				</div>
+				<div class="h-1.5 overflow-hidden rounded-full bg-(--btn-regular-bg)" role="progressbar" aria-label="本年进度" aria-valuemin="0" aria-valuemax="100">
+					<div id="year-progress" class="h-full rounded-full bg-(--primary) transition-[width] duration-500" style="width: 0%"></div>
+				</div>
+			</div>
+			<div data-period="month">
+				<div class="mb-1 flex justify-between text-xs">
+					<span class="text-neutral-500 dark:text-neutral-400">本月还剩</span>
+					<strong id="month-days" class="font-medium text-neutral-700 dark:text-neutral-200">— 天</strong>
+				</div>
+				<div class="h-1.5 overflow-hidden rounded-full bg-(--btn-regular-bg)" role="progressbar" aria-label="本月进度" aria-valuemin="0" aria-valuemax="100">
+					<div id="month-progress" class="h-full rounded-full bg-(--primary) transition-[width] duration-500" style="width: 0%"></div>
+				</div>
+			</div>
+			<div data-period="week">
+				<div class="mb-1 flex justify-between text-xs">
+					<span class="text-neutral-500 dark:text-neutral-400">本周还剩</span>
+					<strong id="week-days" class="font-medium text-neutral-700 dark:text-neutral-200">— 天</strong>
+				</div>
+				<div class="h-1.5 overflow-hidden rounded-full bg-(--btn-regular-bg)" role="progressbar" aria-label="本周进度" aria-valuemin="0" aria-valuemax="100">
+					<div id="week-progress" class="h-full rounded-full bg-(--primary) transition-[width] duration-500" style="width: 0%"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 </WidgetLayout>
 
@@ -61,6 +90,51 @@ const holidays = [
 		if (date) {
 			date.textContent = next.date;
 			date.setAttribute("datetime", next.date);
+		}
+
+		const dayIndex = (value: Date) =>
+			Math.floor(
+				Date.UTC(value.getFullYear(), value.getMonth(), value.getDate()) /
+					86_400_000,
+			);
+		const weekStart = new Date(today);
+		weekStart.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+		const weekEnd = new Date(weekStart);
+		weekEnd.setDate(weekStart.getDate() + 7);
+		const periods = [
+			{
+				id: "year",
+				start: new Date(today.getFullYear(), 0, 1),
+				end: new Date(today.getFullYear() + 1, 0, 1),
+			},
+			{
+				id: "month",
+				start: new Date(today.getFullYear(), today.getMonth(), 1),
+				end: new Date(today.getFullYear(), today.getMonth() + 1, 1),
+			},
+			{ id: "week", start: weekStart, end: weekEnd },
+		];
+
+		for (const period of periods) {
+			const totalDays = dayIndex(period.end) - dayIndex(period.start);
+			// 剩余天数不包含今天；星期按周一至周日计算。
+			const daysRemaining = Math.max(
+				0,
+				dayIndex(period.end) - dayIndex(today) - 1,
+			);
+			const elapsedPercent = Math.round(
+				((totalDays - daysRemaining - 1) / totalDays) * 100,
+			);
+			const daysLabel = document.getElementById(`${period.id}-days`);
+			const progress = document.getElementById(`${period.id}-progress`);
+			if (daysLabel) daysLabel.textContent = `${daysRemaining} 天`;
+			if (progress) {
+				progress.style.width = `${elapsedPercent}%`;
+				progress.parentElement?.setAttribute(
+					"aria-valuenow",
+					String(elapsedPercent),
+				);
+			}
 		}
 	}
 
