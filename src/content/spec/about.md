@@ -20,7 +20,7 @@
 
 ::github{repo="saicaca/fuwari"}
 
-::github{repo="xy1225-boy/firefly-imgbed"}
+::github{repo="PicGo/PicGo-Core"}
 
 ---
 
