@@ -54,15 +54,7 @@ export const siteConfig: SiteConfig = {
 	description: "晓阳的个人博客",
 
 	// 站点关键词
-	keywords: [
-		"晓阳",
-		"Fuwari",
-		"Astro",
-		"ACGN",
-		"博客",
-		"技术博客",
-		"静态博客",
-	],
+	keywords: ["晓阳", "Fuwari", "Astro", "ACGN", "博客", "技术博客", "静态博客"],
 
 	// 主题色
 	themeColor: {
