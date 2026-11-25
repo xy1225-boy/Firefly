@@ -50,8 +50,8 @@ jobs:
           include-hidden-files: true  # Keep .nojekyll (excluded by default since v4)
 
   deploy:
-#    environment:
-#     name: github-pages
+    environment:
+     name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
