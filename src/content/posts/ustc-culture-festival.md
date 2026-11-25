@@ -20,7 +20,13 @@ slug: ustc-culture-festival
 
 美食、表演、合影，还有最后拿到手的奖品，拼在一起就是一个充实又新鲜的周六。很高兴能在熟悉的校园里遇见不同的文化，也很感谢每一位热情参与、愿意分享的朋友。这是一次很棒的经历，也值得用照片好好记下来。
 
-## 活动照片
+<center>
+
+**活动照片**
+![test](https://cdn.jsdelivr.net/gh/xy1225-boy/firefly-imgbed@main/img/%E6%A1%A5%E6%A2%81.png)
+
+</center>
+
 
 ![中外文化节照片 1](./images/culture-festival/02343a2530df071089f900f84e48e9d0.jpg)
 
